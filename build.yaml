@@ -9,8 +9,6 @@ platform:
 install:
   -  npm install
 
-api: 0.7.3
-
 package:
   - locales/en-GB/messages.pot
   - locales/it-IT/messages.pot 
