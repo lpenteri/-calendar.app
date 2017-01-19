@@ -1,0 +1,38 @@
+language: js
+version: 0.1.0
+
+platform:
+  - target: ubuntu
+    version: 14.04
+    arch: i686
+
+install:
+  -  npm install
+
+api: 0.7.3
+
+package:
+  - locales/en-GB/messages.pot
+  - locales/it-IT/messages.pot 
+  - app/eventclient.js
+  - app/marvin_interface.js
+  - app/ mongo2calendar.js
+  - app.js
+  - bin/www
+  - conf.js
+  - insert_caregiver.js
+  - models/caregiver.js
+  - models/event.js
+  - models/pwd.js
+  - package.json
+  - public/dhtmlxscheduler.js
+  - public/dhtmlxscheduler_recurring.js
+  - public/dhtmlxscheduler_flat.css
+  - public/dhtmlxscheduler.css
+  - routes/calendar.js
+  - routes/index.js
+  - views/calendar.html
+  - views/error.jade
+  - views/index.jade
+  - views/layout.jade
+  - views/login.jade
