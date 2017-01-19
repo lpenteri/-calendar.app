@@ -1,0 +1,108 @@
+<!doctype html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="codebase/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+	<script src="codebase/dhtmlxscheduler_recurring.js" type="text/javascript" charset="utf-8"></script>    
+    <script src="codebase/ext/dhtmlxscheduler_quick_info.js"></script>
+    <link rel="stylesheet" href="codebase/dhtmlxscheduler_flat.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <style type="text/css" media="screen">
+        html, body{
+            margin:0px;
+            padding:0px;
+            height:100%;
+            overflow:hidden;
+        }
+        .add_notification_button + div {
+            background:#00FF00;
+            width:97px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+
+<script type="text/javascript" charset="utf-8">
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function add_notification() {
+        scheduler.config.lightbox.sections.push({name:"Notification", map_to:"notification", type:"notification", focus:true}); 
+        scheduler.form_blocks["notification"] = {
+            render: function(sns) {
+                return "<div class='dhx_cal_ltext' style='height:20px;'>&nbsp;<input type='text' style='width:3em;'>&nbsp;<select name='time_unit'><option value='minutes'>Minutes</option><option value='hours'>Hours</option></select></div>";
+            },
+            set_value:function(node, value, ev) {
+                    node.childNodes[1].value = value || "";
+                    node.childNodes[3].value = ev.time_unit || "";
+            },
+            get_value:function(node, ev) {
+                ev.time_unit =  node.childNodes[3].value;
+                return node.childNodes[1].value;
+            },
+            focus:function(node) {
+                var a = node.childNodes[1];
+                a.select();
+                a.focus();
+            }
+        };
+    }
+    function init() {
+        scheduler.config.xml_date="%Y-%m-%d %H:%i";
+		scheduler.config.details_on_create=true;
+		scheduler.config.details_on_dblclick=true;
+		scheduler.config.occurrence_timestamp_in_utc = true;
+        scheduler.config.repeat_date = "%Y-%m-%d %H:%i";
+        scheduler.config.include_end_by = true;
+		scheduler.config.repeat_precise = true;
+
+
+        scheduler.init('scheduler_here',new Date(Date.now()),"month");        
+        scheduler.templates.xml_date = function(value){ return new Date(value); };
+           
+        add_notification();        
+
+/*        scheduler.config.buttons_left.push("add_notification_button");
+        scheduler.locale.labels["add_notification_button"] = "New notification";
+        scheduler.attachEvent("onLightboxButton", function(button_id, node, e){
+            if(button_id == "add_notification_button"){
+                add_notification();
+            }
+        });
+*/
+        var id = getParameterByName('id');
+        scheduler.load(("/calendar/data?id=" + id), "json");
+    
+        var dp = new dataProcessor("/calendar/data?id=" + id);
+        dp.init(scheduler);
+        dp.setTransactionMode("POST", false);
+    }
+</script>
+
+<body onload="init();">
+    <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
+            <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+            <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+            <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+        </div>
+        <div class="dhx_cal_header">
+        </div>
+        <div class="dhx_cal_data">
+        </div>
+    </div>
+</body>

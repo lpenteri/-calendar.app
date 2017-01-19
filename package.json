@@ -1,0 +1,43 @@
+{
+  "name": "calendar.app",
+  "version": "0.1.0",
+  "description": "calendar app for the Kompai Robot specialized on elderly users",
+  "main": "grunt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
+  },
+  "keywords": [
+    "calendar",
+    "app",
+    "dementia",
+    "elderly",
+    "MARIO",
+    "Kompai",
+    "Robotic",
+    "app",
+    "elderly"
+  ],
+  "author": "Lazaros Penteridis",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "cron": "^1.1.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "express-session": "^1.14.2",
+    "jade": "~1.11.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.4.1",
+    "mongoskin": "^2.1.0",
+    "morgan": "~1.7.0",
+    "node-cron": "^1.1.2",
+    "node-gettext": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^1.0.0",
+    "sugar": "^2.0.2"
+  }
+}

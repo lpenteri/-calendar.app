@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    .container
+    h1 Welcome caregiver! This is the page from which you can manage your patients' calendars
+    br
+    table(class="table table-striped table-hover")
+        thead
+            tr 
+                th Username
+                th First Name
+                th Last Name
+        tbody
+            each pwd, i in pwds
+                tr
+                    td #{pwd.username}
+                    td #{pwd.first_name} 
+                    td #{pwd.last_name}
+                    td 
+                        a(href='/calendar?id=' + pwd.id) Manage calendar
+
+    form(role='form', action="/",method="post", style='max-width: 300px;')
+      .form-group
+          input.form-control(type='text', name="username", placeholder='Username')
+      .form-group
+          input.form-control(type='text', name="first_name", placeholder='First Name')
+      .form-group
+        input.form-control(type='text', name="last_name", placeholder='Last Name')
+      button.btn.btn-default(type='submit') Add PWD
+      &nbsp;
+      a(href='/')
+        button.btn.btn-primary(type="button") Cancel
